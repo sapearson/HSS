@@ -32,7 +32,7 @@ Instructions For Use
 	1.	Ensure you are able to import the package:
 		import HSS 
 		
-	2.	Run the RHT for individual files or directories, given a number of parameters. 
+	2.	Run the HSS for individual files, given a number of parameters. 
 		HSS.RT_plot(filename[:-4], pos, unit, kpc_conversion, delta_t, drho, outlier, pointsize, mask, path_plot, verbose, rho_edge)
 		
 	3.	Files needed to run
@@ -41,10 +41,10 @@ Instructions For Use
 		
 	4.	Explanation of input
 		⁃	filename #see files needed to run
-		⁃	pos = filename[:,0]/kpc_conversion, filename[:,1]/kpc_conversion 
-		⁃	unit = "deg" #unit of your input data "deg" for observations or "unitless" for e.g. simulations                                                                                                
-		⁃	kpc_conversion = np.pi * d_galaxy / 180. #from deg to kpc  #this is only relevant if unit = "deg", otherwise set kpc_conversion = 1                                                                                     
-		⁃	delta_t = 0.1 # this is the theta spacing deg                                                                                                            
+		⁃	pos = filename[:,0], filename[:,1]
+		⁃	unit = "deg" #unit of your input data "deg" for observations or "unitless" for e.g. simulations                                        
+		⁃	kpc_conversion = np.pi * d_galaxy / 180. #from deg to kpc  #this is only relevant if unit = "deg", otherwise set kpc_conversion = 1       
+		⁃	delta_t = 0.1 # this is the theta spacing deg                                                                                               
 		⁃	drho = 0.4	# spacing in rho (search width) 
 		⁃	outlier = 20.   # -log10Pr = outlier  how large of an outlier are you searching for (binomial probability)
 		⁃	pointsize = 1 #for plots
