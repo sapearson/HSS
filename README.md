@@ -80,7 +80,11 @@ Instructions For Use
 		⁃	See file for inputs and how to run the HSS
 		⁃	to run from terminal: python run_HSS.py
 
+==================================
+
+Copyright
+==================================
 
 If use of the RHT results in a publication, please cite Pearson et al. 2021.
 
-The HSS maintained by sapearson 
+The HSS maintained by Sarah Pearson (sapearson)
