@@ -1,0 +1,129 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2576
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;\f1\fswiss\fcharset0 Helvetica;\f2\fnil\fcharset0 HelveticaNeue;
+}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red255\green255\blue255;\red191\green200\blue208;
+\red25\green138\blue68;\red0\green0\blue0;\red0\green0\blue0;\red255\green255\blue255;\red0\green0\blue0;
+\red29\green91\blue176;\red0\green0\blue0;\red190\green199\blue208;\red192\green201\blue208;\red191\green200\blue208;
+\red28\green90\blue175;\red0\green0\blue0;\red255\green255\blue255;\red17\green62\blue195;\red43\green48\blue50;
+\red0\green0\blue0;\red0\green0\blue0;\red79\green90\blue94;}
+{\*\expandedcolortbl;;\cssrgb\c0\c1\c1;\cssrgb\c100000\c100000\c99985\c0;\cssrgb\c79368\c82529\c85173;
+\cssrgb\c7807\c59716\c33535;\cssrgb\c0\c0\c0;\cssrgb\c0\c1\c1;\cssrgb\c100000\c100000\c100000\c0;\cssrgb\c0\c1\c1;
+\cssrgb\c13861\c44493\c74546;\cssrgb\c0\c1\c1;\cssrgb\c79043\c82190\c85130;\cssrgb\c79584\c82753\c85198;\cssrgb\c79369\c82529\c85173;
+\cssrgb\c13393\c43928\c74015;\cssrgb\c0\c1\c1;\cssrgb\c100000\c100000\c99985\c0;\cssrgb\c7290\c34074\c80724;\cssrgb\c22202\c24574\c25557;
+\cssrgb\c0\c1\c1;\cssrgb\c0\c1\c1;\cssrgb\c38066\c42809\c44438;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid1\'02\'00.;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{hyphen\}}{\leveltext\leveltemplateid2\'01\uc0\u8259 ;}{\levelnumbers;}\fi-360\li1440\lin1440 }{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{hyphen\}}{\leveltext\leveltemplateid3\'01\uc0\u8259 ;}{\levelnumbers;}\fi-360\li2160\lin2160 }{\listname ;}\listid1}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}}
+\margl1440\margr1440\vieww20280\viewh11300\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs24 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec4 ==================================\
+The Hough Stream Spotter (HSS)\
+==================================\
+
+\f1 \cf2 \cb3 \strokec5 \
+\pard\pardeftab720\sa240\partightenfactor0
+\cf2 \cb3 \strokec6 This is the Hough Stream Spotter (HSS), described in Pearson et al. 2021 (arXiv: )\
+The HSS is a \cf7 \cb3  stream finding code which transforms individual positions of stars to search for linear str
+\f2 \cf2 \cb8 ucture in discrete data sets. The HSS requires only the two-dimensional plane of galactic longitude and latitude as input. \cf9 The HSS was used to search for globular cluster streams in the PAndAS M31 stellar halo photometric data set in Pearson et al. 2021. \
+This code is written and maintained by\'a0{\field{\*\fldinst{HYPERLINK "https://www.drsarahpearson.com"}}{\fldrslt \cf9 \strokec10 Sarah Pearson}}, with contributions from\'a0\cf9 \strokec10 Susan E. Clark.\cf9 \strokec6  Please feel free to get in touch with any questions, and please create pull requests to suggest improvements.\
+\pard\pardeftab720\partightenfactor0
+\cf11 \strokec12 A example of how to use th code is available in the iPython notebook \'93HSS_example.ipynb" with a place to put in your own code.\cf9 \strokec6 \
+\pard\pardeftab720\sa240\partightenfactor0
+\cf9 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 ==================================
+\f1 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 \strokec5 Requirements\
+\pard\pardeftab720\partightenfactor0
+
+\f0 \cf7 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 ==================================\
+
+\f1 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \
+\pard\pardeftab720\sa240\partightenfactor0
+\cf2 \cb3 \strokec6 To run the HSS you'll need \'a0matplotlib, {\field{\*\fldinst{HYPERLINK "http://www.numpy.org/"}}{\fldrslt \cf2 \cb3 \strokec15 numpy}},\'a0{\field{\*\fldinst{HYPERLINK "https://www.scipy.org/"}}{\fldrslt \cf2 \cb3 \strokec15 scipy}}, and\'a0{\field{\*\fldinst{HYPERLINK "http://www.astropy.org/"}}{\fldrslt \cf2 \cb3 \strokec15 astropy}}. \
+\pard\pardeftab720\partightenfactor0
+\cf16 \cb17 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 If you include masks in your dataset, you need the astropy {\field{\*\fldinst{HYPERLINK "https://github.com/astropy/regions"}}{\fldrslt regions}} module. \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2 \cf11 \cb8 Install through:\
+\pard\pardeftab720\partightenfactor0
+\cf11 pip install git+{\field{\*\fldinst{HYPERLINK "https://github.com/astropy/regions"}}{\fldrslt \cf11 \ul \ulc11 \strokec18 https://github.com/astropy/regions}}\AppleTypeServices\AppleTypeServicesF65539 \cf11 \
+\pard\pardeftab720\sa240\partightenfactor0
+
+\f1 \AppleTypeServices \cf2 \cb3 \
+\pard\pardeftab720\partightenfactor0
+
+\f0 \cf7 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 ==================================
+\f1 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 \strokec5 Instructions For Use\
+\pard\pardeftab720\partightenfactor0
+
+\f0 \cf7 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 ==================================\
+
+\f1 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sa240\partightenfactor0
+\ls1\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	1.	}\cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 Ensure you are able to import the package:\uc0\u8232 \cf2 \cb3 \strokec19 import HSS\cf2 \cb3 \strokec6 \uc0\u8232 \
+\ls1\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	2.	}\cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 Run the RHT for individual files or directories, given a number of parameters. \uc0\u8232 HSS.RT_plot(\cf16 \cb17 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 filename[:-4], \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 pos, unit, kpc_conversion, delta_t, drho, outlier, pointsize, mask, path_plot, verbose, rho_edge)\
+\ls1\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	3.	}Files needed to run\
+\pard\tx940\tx1440\pardeftab720\li1440\fi-1440\sa240\partightenfactor0
+\ls1\ilvl1\cf2 {\listtext	\uc0\u8259 	}\cf16 \cb17 filename = 'fakestream.txt'  #some data in which you\'92re search for a stream. Should be a circular region in either deg or unitless. \cf20 \cb8 \
+\ls1\ilvl1\cf21 {\listtext	\uc0\u8259 	}
+\f0\fs22 \cf11 \CocoaLigature0 masks_pos.txt\'92, masks_sizes.txt' #if you include masks, load in their position and sizes in Ra/dec [deg]
+\f1\fs24 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\CocoaLigature1 \outl0\strokewidth0 \strokec6 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sa240\partightenfactor0
+\ls1\ilvl0\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	4.	}\cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec6 Explanation of input\
+\pard\tx940\tx1440\pardeftab720\li1440\fi-1440\sa240\partightenfactor0
+\ls1\ilvl1\cf2 \cb3 \kerning1\expnd0\expndtw0 \outl0\strokewidth0 {\listtext	\uc0\u8259 	}\cf16 \cb17 filename #see files needed to run\cf2 \cb3 \
+\ls1\ilvl1\cf16 \cb17 {\listtext	\uc0\u8259 	}pos = filename[:,0]/kpc_conversion, filename[:,1]/kpc_conversion \cf2 \cb3 \
+\ls1\ilvl1\cf7 \cb3 {\listtext	\uc0\u8259 	}unit = "deg" #unit of your input data "deg" for observations or "unitless" for e.g. simulations                                                                                                \
+\pard\tx940\tx1440\pardeftab720\li1440\fi-1440\sa240\partightenfactor0
+\ls1\ilvl1\cf7 \cb3 {\listtext	\uc0\u8259 	}kpc_conversion = np.pi * d_galaxy / 180. #from deg to kpc  #this is only relevant if unit = "deg", otherwise set kpc_conversion = 1                                                                                     \
+{\listtext	\uc0\u8259 	}delta_t = 0.1 # this is the theta spacing deg                                                                                                            \
+{\listtext	\uc0\u8259 	}drho = 0.4	# spacing in rho (search width) \
+{\listtext	\uc0\u8259 	}outlier = 20.   # -log10Pr = outlier  how large of an outlier are you searching for (binomial probability)\
+{\listtext	\uc0\u8259 	}pointsize = 1 #for plots\
+{\listtext	\uc0\u8259 	}mask = False #are you including masks in your data set? \
+\pard\tx1660\tx2160\pardeftab720\li2160\fi-2160\sa240\partightenfactor0
+\ls1\ilvl2\cf7 \cb3 {\listtext	\uc0\u8259 	}can switch to True, and then read in your mask pos and sizes in Ra/Dec [deg] to masks_calc.py\
+{\listtext	\uc0\u8259 	}for mask = True, you need to set unit = "deg" and your input needs to be in RA/dec [deg]\
+\uc0\u8259  p\cf16 \cb17 ath_plot = '/Users/\'85\'92 # location to save plots   \cf7 \cb3 \
+\pard\tx940\tx1440\pardeftab720\li1440\fi-1440\sa240\partightenfactor0
+\ls1\ilvl1\cf7 \cb3 {\listtext	\uc0\u8259 	}\cf16 \cb17 verbose= True #read out plots and updates in run\
+{\listtext	\uc0\u8259 	}rho_edge = False #only searches 60% central part of regions, but set to False if not using overlapping regions\
+\pard\tx220\tx720\tx1440\pardeftab720\li720\fi-720\sa240\partightenfactor0
+\ls1\ilvl0\cf7 \cb3 {\listtext	5.	}Output\
+\pard\tx940\tx1440\pardeftab720\li1440\fi-1440\sa240\partightenfactor0
+\ls1\ilvl1\cf7 {\listtext	\uc0\u8259 	}\
+\pard\tx220\tx720\tx1440\pardeftab720\li720\fi-720\sa240\partightenfactor0
+\ls1\ilvl0\cf7 {\listtext	6.	}\cf16 \cb17 Run file: run_HSS.py\
+\pard\tx940\tx1440\pardeftab720\li1440\fi-1440\sa240\partightenfactor0
+\ls1\ilvl1\cf16 {\listtext	\uc0\u8259 	}See file for inputs and how to run the HSS\
+{\listtext	\uc0\u8259 	}to run from terminal: python run_HSS.py\expnd0\expndtw0\kerning0
+\
+\pard\tx720\tx1440\pardeftab720\sa240\partightenfactor0
+\cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec5 \
+\pard\pardeftab720\sa240\partightenfactor0
+\cf2 \cb3 \strokec6 If use of the RHT results in a publication, please cite\'a0\cf2 \cb3 \strokec15 Pearson et al. 2021.\cf2 \cb3 \strokec6 \
+The HSS\cf2 \cb3 \strokec22  maintained by\'a0{\field{\*\fldinst{HYPERLINK "https://github.com/seclark"}}{\fldrslt \cf2 \cb3 \strokec15 sape}}\cf2 \cb3 \strokec15 ara \cf2 \cb3 \strokec22 \
+}
