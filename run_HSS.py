@@ -2,6 +2,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import HSS 
 
+# From terminal:
+# python run_HSS.py
+
 path_plot = '/Users/spearson/Desktop/'
 #import test data
 filename = 'fakestream.txt' #your data file name, in kpc in this example
