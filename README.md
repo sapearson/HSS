@@ -18,7 +18,9 @@ Requirements
 ==================================
 
 To run the HSS you'll need  matplotlib, numpy, scipy, and astropy. 
+
 If you include masks in your dataset, you need the astropy regions module. 
+
 Install through:
 pip install git+https://github.com/astropy/regions
 
