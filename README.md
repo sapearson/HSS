@@ -84,7 +84,7 @@ Instructions For Use
 
 ==================================
 
-Copyright
+Code use
 ==================================
 
 If use of the HSS results in a publication, please cite Pearson et al. 2021.
