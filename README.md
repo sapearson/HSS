@@ -18,10 +18,15 @@ Basic structure of code
 ==================================
 
 -Hough Transforms Each star in input region
+
 -Makes 2d histogram of Hough Transform (peaks correspond to overlapping sinusoids)
+
 -Calculates bibomial probability of certain bins having k or more stars by chance
+
 -Finds minimua in probability distribution at certain rho and theta values
+
 -Translates these peaks to a "stripe"/stream in x,y position space
+
 -Plots the input data, the detected stripe and the probability distribution of the detection
 
 
