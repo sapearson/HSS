@@ -87,6 +87,6 @@ Instructions For Use
 Copyright
 ==================================
 
-If use of the RHT results in a publication, please cite Pearson et al. 2021.
+If use of the HSS results in a publication, please cite Pearson et al. 2021.
 
 The HSS maintained by Sarah Pearson (sapearson)
