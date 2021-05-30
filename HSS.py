@@ -39,8 +39,8 @@ import HSS_coordinate_calc as cc
 
 #-----------------------------------------------------------------------------
 # To run: 
-# import HSS_binom.py as HSS
-# mSS.RT_plot(pos, unit, kpc_conversiιον, delta_t, drho, outlier, pointsize, mask, filename[:-4], path_plot, verbose, rho_edge)
+# import HSS
+# HSS.RT_plot(pos, unit, kpc_conversion, delta_t, drho, outlier, pointsize, mask, filename[:-4], path_plot, verbose, rho_edge)
 
 
 
