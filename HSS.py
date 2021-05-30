@@ -556,13 +556,26 @@ def RT_plot(pos,unit,kpc_conversion,delta_t,drho,outlier, pointsize,mask, filena
     #Scatter plot but now adding linear structures where Hough Transform found maxima on rho/theta grid
  #   axes[1].scatter(pos_rht[0],pos_rht[1], s = pointsize, color='grey')
     
+    fig,axes = plt.subplots(1,2 ,figsize=(12,6))#, sharex=True, sharey = True)                                                \
+                                                                                                                               
+    axes[0].scatter(pos_rht[0],pos_rht[1], s = pointsize, color ='grey')
+    axes[0].set_xlabel(axislabel)
+    axes[0].set_ylabel(axislabel)
 
+    #Scatter plot but now adding linear structures where Hough Transform found maxima on rho/theta grid                       \
+                                                                                                                               
+    axes[1].scatter(pos_rht[0],pos_rht[1], s = pointsize, color='grey')#, label='stream stars: '+ str(len(feature_ra)))
+#    axes[1].legend(fontsize=16)
+
+
+ 
     #to store stars inside for connecting features
     feature_ra_notpeak =[]
     feature_dec_notpeak =[]
     blob_ra_notpeak =[]
     blob_dec_notpeak =[]
     Pr_notpeak = []
+    stars_inside =[]
     for i in range(len(x_line)): 
     #Draw polygon imported from HT_linear_feature function
         path_poly = mpltPath.Path(poly_coords[i])
@@ -570,7 +583,7 @@ def RT_plot(pos,unit,kpc_conversion,delta_t,drho,outlier, pointsize,mask, filena
         inside = path_poly.contains_points(np.transpose([pos_rht[0],pos_rht[1]]))
         poly = mpl.patches.Polygon(poly_coords[i],alpha=0.3, color=c[i])
         stars_inside_poly = len(pos_rht[0][inside]) #str(stars_inside_poly)+' stars,
-
+        stars_inside.append(stars_inside_poly)
         # Option to store all features... might be interesting for the dwarf run
         #also store the inside stars in ra/dec so we can see connecting features of most significant peak
         # To use the np.save features below, you need to create a "features" and "inside" directory in your plot_path 
@@ -606,25 +619,23 @@ def RT_plot(pos,unit,kpc_conversion,delta_t,drho,outlier, pointsize,mask, filena
             blob_dec_notpeak.append(blob_dec)
             Pr_notpeak.append(np.round(Pr_min[i],2))
 
-
-           #Scatter plot of region stars only                                                                                                                                          
-        fig,axes = plt.subplots(1,2 ,figsize=(12,6))#, sharex=True, sharey = True)                                                                                                  
-        axes[0].scatter(pos_rht[0],pos_rht[1], s = pointsize, color ='grey')
-        axes[0].set_xlabel(axislabel)
-        axes[0].set_ylabel(axislabel)
-
-    #Scatter plot but now adding linear structures where Hough Transform found maxima on rho/theta grid                                                                         
-        axes[1].scatter(pos_rht[0],pos_rht[1], s = pointsize, color='grey', label='stream stars: '+ str(len(feature_ra)))
-        axes[1].legend(fontsize=16)
-
-            
         axes[1].add_patch(poly)
         axes[1].plot(x_line[i], y_line[i], linestyle='--',  \
-                             label=  r'$\theta = $' + \
-                     str(np.round(theta_max[i],2))  + ' deg, ' + r'$\rho = $ ' + str(np.round(rho_max[i],2)), color=c[i])
-        if i > 10: #likely spherical object
-            break #I only want to draw the first 10 polygrams... 
-            #note that the 10 most significant streams will be the ones plotted (due to argsort in the peak finding algorithm)
+                             label= 'Stream stars: ' + str(stars_inside[i]), color=c[i])
+
+        axes[1].legend(fontsize=16)
+
+
+
+            
+        if i > 10: #likely spherical object                                                                                    
+            break #I only want to draw the first 10 polygrams...                                                               
+            #note that the 10 most significant streams will be the ones plotted (due to argsort in the peak finding algorithm) 
+
+
+
+           #Scatter plot of region stars only                                                                                                                                          
+     
 
 
     #store the stars inside the less significant peaks and their Pr values
