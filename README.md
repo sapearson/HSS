@@ -13,6 +13,7 @@ This code is written and maintained by Sarah Pearson, with contributions from 
 A example of how to use th code is available in the iPython notebook “HSS_example.ipynb" with a place to put in your own code.
 
 ==================================
+
 Requirements
 ==================================
 
@@ -22,34 +23,42 @@ Install through:
 pip install git+https://github.com/astropy/regions
 
 ==================================
+
 Instructions For Use
 ==================================
 
-	1.	Ensure you are able to import the package: import HSS 
-	2.	Run the RHT for individual files or directories, given a number of parameters.  HSS.RT_plot(filename[:-4], pos, unit, kpc_conversion, delta_t, drho, outlier, pointsize, mask, path_plot, verbose, rho_edge)
+	1.	Ensure you are able to import the package:
+		import HSS 
+		
+	2.	Run the RHT for individual files or directories, given a number of parameters. 
+		HSS.RT_plot(filename[:-4], pos, unit, kpc_conversion, delta_t, drho, outlier, pointsize, mask, path_plot, verbose, rho_edge)
+		
 	3.	Files needed to run
-	⁃	filename = 'fakestream.txt'  #some data in which you’re search for a stream. Should be a circular region in either deg or unitless. 
-	⁃	masks_pos.txt’, masks_sizes.txt' #if you include masks, load in their position and sizes in Ra/dec [deg]
+		⁃	filename = 'fakestream.txt'  #some data in which you’re search for a stream. Should be a circular region in either deg or unitless. 
+		⁃	masks_pos.txt’, masks_sizes.txt' #if you include masks, load in their position and sizes in Ra/dec [deg]
+		
 	4.	Explanation of input
-	⁃	filename #see files needed to run
-	⁃	pos = filename[:,0]/kpc_conversion, filename[:,1]/kpc_conversion 
-	⁃	unit = "deg" #unit of your input data "deg" for observations or "unitless" for e.g. simulations                                                                                                
-	⁃	kpc_conversion = np.pi * d_galaxy / 180. #from deg to kpc  #this is only relevant if unit = "deg", otherwise set kpc_conversion = 1                                                                                     
-	⁃	delta_t = 0.1 # this is the theta spacing deg                                                                                                            
-	⁃	drho = 0.4	# spacing in rho (search width) 
-	⁃	outlier = 20.   # -log10Pr = outlier  how large of an outlier are you searching for (binomial probability)
-	⁃	pointsize = 1 #for plots
-	⁃	mask = False #are you including masks in your data set? 
-	⁃	can switch to True, and then read in your mask pos and sizes in Ra/Dec [deg] to masks_calc.py
-	⁃	for mask = True, you need to set unit = "deg" and your input needs to be in RA/dec [deg]
-⁃ path_plot = '/Users/…’ # location to save plots   
-	⁃	verbose= True #read out plots and updates in run
-	⁃	rho_edge = False #only searches 60% central part of regions, but set to False if not using overlapping regions
+		⁃	filename #see files needed to run
+		⁃	pos = filename[:,0]/kpc_conversion, filename[:,1]/kpc_conversion 
+		⁃	unit = "deg" #unit of your input data "deg" for observations or "unitless" for e.g. simulations                                                                                                
+		⁃	kpc_conversion = np.pi * d_galaxy / 180. #from deg to kpc  #this is only relevant if unit = "deg", otherwise set kpc_conversion = 1                                                                                     
+		⁃	delta_t = 0.1 # this is the theta spacing deg                                                                                                            
+		⁃	drho = 0.4	# spacing in rho (search width) 
+		⁃	outlier = 20.   # -log10Pr = outlier  how large of an outlier are you searching for (binomial probability)
+		⁃	pointsize = 1 #for plots
+		⁃	mask = False #are you including masks in your data set? 
+		⁃	can switch to True, and then read in your mask pos and sizes in Ra/Dec [deg] to masks_calc.py
+		⁃	for mask = True, you need to set unit = "deg" and your input needs to be in RA/dec [deg]
+		⁃      	path_plot = '/Users/…’ # location to save plots   
+		⁃	verbose= True #read out plots and updates in run
+		⁃	rho_edge = False #only searches 60% central part of regions, but set to False if not using overlapping regions
+		
 	5.	Output
-	⁃	
+		⁃	
 	6.	Run file: run_HSS.py
-	⁃	See file for inputs and how to run the HSS
-	⁃	to run from terminal: python run_HSS.py
+	
+		⁃	See file for inputs and how to run the HSS
+		⁃	to run from terminal: python run_HSS.py
 
 
 If use of the RHT results in a publication, please cite Pearson et al. 2021.
