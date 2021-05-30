@@ -67,14 +67,16 @@ Instructions For Use
 		⁃	outlier = 20.   # -log10Pr = outlier  how large of an outlier are you searching for (binomial probability)
 		⁃	pointsize = 1 #for plots
 		⁃	mask = False #are you including masks in your data set? 
-		⁃	can switch to True, and then read in your mask pos and sizes in Ra/Dec [deg] to masks_calc.py
-		⁃	for mask = True, you need to set unit = "deg" and your input needs to be in RA/dec [deg]
+				⁃can switch to True, and then read in your mask pos and sizes in Ra/Dec [deg] to masks_calc.py
+				- for mask = True, you need to set unit = "deg" and your input needs to be in RA/dec [deg]
 		⁃      	path_plot = '/Users/…’ # location to save plots   
 		⁃	verbose= True #read out plots and updates in run
 		⁃	rho_edge = False #only searches 60% central part of regions, but set to False if not using overlapping regions
 		
 	5.	Output
-		⁃	
+			⁃ 2D histogram of Hough Transform and the binomial probability distribution
+			- Input region along with possible detection
+			     - Output filenames are either "Empty_", "Blob_, or "Stream_", depending on what the HSS found
 	6.	Run file: run_HSS.py
 	
 		⁃	See file for inputs and how to run the HSS
