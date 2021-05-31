@@ -10,7 +10,7 @@ The HSS is a  stream finding code which transforms individual positions of stars
 
 This code is written and maintained by Sarah Pearson, with contributions from Susan E. Clark. Please feel free to get in touch with any questions, and please create pull requests to suggest improvements.
 
-A example of how to use th code is available in the iPython notebook “HSS_example.ipynb" with a place to put in your own discrete data region.
+A example of how to use th code is available in the Jupyter Notebook “HSS_example.ipynb" with a place to put in your own discrete data region.
 
 ==================================
 
