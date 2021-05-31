@@ -73,7 +73,7 @@ Instructions For Use
 		import HSS
 		
 	2.	Run the HSS for individual files, given a number of parameters. 
-		HSS.RT_plot(filename[:-4], pos, unit, kpc_conversion, delta_t, drho, outlier, pointsize, mask, path_plot, verbose, rho_edge)
+		HSS.RT_plot(pos, unit, kpc_conversion, delta_t, drho, outlier, pointsize, mask, filename[:-4], path_plot, verbose, rho_edge)
 		
 	3.	Files needed to run:
 		        - filename = 'fakestream.txt'  #discrete input data (n,2), should be a circular region in either deg or unitless. 
