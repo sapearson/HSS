@@ -35,20 +35,25 @@ Basic Structure of Code
 The code consists of five main functions in HSS.py
 
 Function 1: HT_starpos
+
 -Hough Transforms each star position (x,y) in input region to (rho,theta)
 
 Function 2: rho_theta_grid
+
 -Makes 2D histogram of (rho,theta) with drho, delta_t bins (peaks in this histogram correspond to overlapping sinusoids, i.e., straight lines in (x,y)-space)
 
 -Calculates bibomial probability of certain bins in the rho-theta 2D histogram having k or more overlapping sinusoids (stars) by chance
 
 Function 3: rho_theta_peaks
+
 -Finds minima in probability distribution at certain rho and theta values
 
 Function 4: HT_linear_feature
+
 -Translates these minima into a "stripe"/stream in (x,y) position space through an Inverse Hough Transform
 
 Function 5: RT_plot
+
 -Plots the input data, the detected stripe and the probability distribution of the detection.
 
 -Outputs the (rho,theta)-values associated with the minima in (rho,theta) space, the probability of detection, and the number if stars in the recovered linear feature
