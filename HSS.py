@@ -29,8 +29,6 @@ from regions import CircleSkyRegion, EllipseSkyRegion
 #-----------------------------------------------------------------------------
 #Separate routine imports by SP
 #----------------------------------------------------------------------------- 
-#import masks_calc as masks
-import HSS_masks_calc  as masks
 import HSS_coordinate_calc as cc
 
 # If masks = True:
@@ -137,6 +135,8 @@ def rho_theta_grid(pos, drho, delta_t, kpc_conversion, mask, unit,verbose, rho_e
 
 
     if mask:
+        #only import if masks uses, so people don't need regions module
+        import HSS_masks_calc  as masks
         try:
             mask_pos = np.genfromtxt('masks_pos.txt') #
             mask_size = np.genfromtxt('masks_sizes.txt')# 
