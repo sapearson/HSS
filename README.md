@@ -68,6 +68,7 @@ Instructions For Use
 			⁃ Plot of 2D histogram of Hough Transform and the binomial probability distribution
 			- Plot of input region along with possible detection
 			     - Output filenames are either "Empty_", "Blob_, or "Stream_", depending on what the HSS found
+			     
 	6.	Run file: run_HSS.py
 	
 		⁃	See file for inputs and how to run the HSS
