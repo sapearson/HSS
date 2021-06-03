@@ -18,7 +18,7 @@ import HSS as HSS
 
 
 
-def mask_calc(mask, pos, kpc_conversion , alpha_0, delta_0,X_sphere_rht, Y_sphere_rht,  data_ang_radius, data_ra_center, data_dec_center, c_data,verbose, mask_pos,mask_size,theta_s,drho, rho, grid_x,grid_y,edgex,edgey):    
+def mask_calc(mask, pos, kpc_conversion , alpha_0, delta_0,X_sphere_rht, Y_sphere_rht,  data_ang_radius, data_ra_center, data_dec_center, c_data,verbose, mask_pos,mask_size,delta_t,drho, rho, grid_x,grid_y,edgex,edgey):    
     """
     Function that checks if your data region intersects any of the masks you have read in as txt files above. 
     Your data needs to be in ra/dec [deg] for this function to work
@@ -233,7 +233,7 @@ def mask_calc(mask, pos, kpc_conversion , alpha_0, delta_0,X_sphere_rht, Y_spher
             k_ip1 = np.int(n_range[k+1])
  #           print('selecting stars from ' + str(k_i) + ' to ' + str(k_ip1))
             pos_rht_i = X_sphere_times10_rht[k_i:k_ip1],Y_sphere_times10_rht[k_i:k_ip1]
-            rho_sub, theta_sub = HSS.HT_starpos(pos_rht_i, theta_s)
+            rho_sub, theta_sub = HSS.HT_starpos(pos_rht_i, delta_t)
             #at the end we have filled all of rho and theta with the 10xstars but divided into 9 different groups
             rho_grid_i, edgex, edgey = np.histogram2d(np.array(theta_sub).flatten(), np.array(rho_sub).flatten(), bins = [grid_x, grid_y])
             #add each grid from each subset of stars to the previous subset rho/theta grid
