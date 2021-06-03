@@ -13,8 +13,8 @@ import time
 #-----------------------------------------------------------------------------                                                                                          
 #Read in spherical transform
 #-----------------------------------------------------------------------------   
-import HSS_coordinate_calc as cc
-import HSS as HSS
+import coordinate_calc as cc
+import HSS_binom as HSS
 
 
 
@@ -113,9 +113,37 @@ def mask_calc(mask, pos, kpc_conversion , alpha_0, delta_0,X_sphere_rht, Y_spher
         b_list = np.abs(c_data.dec.deg - data_dec_center)
         b = np.max(b_list)#+0.01
 
+        # How many stars do we have in the region
         Nstars = len(c_data)
-        Nstars_times10 = Nstars*10
 
+        # What is the number density of stars in the region
+        area_region = np.pi*np.max(np.round(rho,1))**2
+        number_density_region = Nstars/area_region
+
+        # Requiring a number density of at least 100 stars/kpc^2 to calculate numerical dA  
+        # Below can be condensed 
+        if number_density_region < 0.1: #stars/kpc^2                                                                                                                                   
+            Nstars_times10 =  Nstars*10000
+            
+        if (number_density_region >= 0.1) & (number_density_region < 1): #stars/kpc^2                                                                                              
+            Nstars_times10 =  Nstars*1000
+            
+        if (number_density_region >= 1) & (number_density_region < 10): #stars/kpc^2
+            Nstars_times10 =  Nstars*100
+            
+        if (number_density_region > 10) & (number_density_region < 100): #stars/kpc^2                                                          
+            Nstars_times10 =  Nstars*10
+            
+        else: #just use the stars that are already in region. 
+            Nstars_times10 =  Nstars
+
+        if verbose:
+            print('For numerical dA, the number density is: ')
+            print(str(Nstars_times10/area_region) +' stars/kpc^2')
+            print('')
+
+
+        
         #We now just make one background with 10 times as many stars (Nstars
         #for j in range(Nsamples):
         r_scramble = np.random.uniform(low=0, high=(a)**2, size = (Nstars_times10)) #radius of scramble data, high=radius data **2                      
@@ -143,15 +171,10 @@ def mask_calc(mask, pos, kpc_conversion , alpha_0, delta_0,X_sphere_rht, Y_spher
                     idx_removed_masks[k] = False
 
                     #store how many missing stars we have when we remove masks from fake region                                                                         
-                    #This should be for eac scattered region (10)                                                                                                       
-                    #    extra_stars = np.zeros([Nsamples])
-                    #   for j in range(Nsamples):
-        extra_stars = len(c_times10.ra) - len(c_times10.ra[idx_removed_masks]) #no of stars missing in scat region                          
-#        print(extra_stars)
-
-         #make iteration so I fill the empty masks again with stars...                                                                                       
-        iterations = 50 #can be small this algorithm converges quikcly                                                                                      
-
+                    #This should be for eac scattered region (10)                                                                              
+        extra_stars = len(c_times10.ra) - len(c_times10.ra[idx_removed_masks]) #number of stars missing in scattered region                          
+         #make iteration so I fill the empty masks again with stars...                                                                                   
+        iterations = 50 #can be small this algorithm converges quikcly                                                                          
         times10_stars_allsamples = []
 
         #    for j in range(Nsamples): #different scattered regions                                                                                            
@@ -162,15 +185,16 @@ def mask_calc(mask, pos, kpc_conversion , alpha_0, delta_0,X_sphere_rht, Y_spher
             x_times10_extra = []
             y_times10_extra = []
             
-            r_times10_extra = np.random.uniform(low=0, high=(a)**2., size = (np.int(extra_stars - extra_stars_corr ))) #radius of scramble data, hi\gh=radius data **2                                                                                                                                          
+            r_times10_extra = np.random.uniform(low=0, high=(a)**2., size = (np.int(extra_stars - extra_stars_corr ))) #radius of srambled data                                                                                                                                         
             angle_times10_extra = np.random.uniform(low=0, high=2.*np.pi, size = (np.int(extra_stars- extra_stars_corr)))
             x_times10_extra.append(np.sqrt(r_times10_extra) * np.cos(angle_times10_extra))
             y_times10_extra.append(np.sqrt(r_times10_extra) * np.sin(angle_times10_extra)*b/a)
 
-            #the ones that are now in masks should be re-cointed and distrributred again until the number og stars outside                                      
+            #the ones that are now in masks should be re-counted and distributed again until the number og stars outside         
             #the mask is the same number as in the read in region                                                                                               
 
-            c_times10_extra = coord.SkyCoord(ra = x_times10_extra + data_ra_center, dec = y_times10_extra + data_dec_center, unit='deg') #all data in\ regions                                                                                                                                                    
+            c_times10_extra = coord.SkyCoord(ra = x_times10_extra + data_ra_center, dec = y_times10_extra + data_dec_center, unit='deg')
+            #all data in regions                                                                                                                                                    
             mask_contains_extra = []
             idx_removed_masks_it1 = np.ones([len(r_times10_extra)], dtype=bool)
 
@@ -179,12 +203,12 @@ def mask_calc(mask, pos, kpc_conversion , alpha_0, delta_0,X_sphere_rht, Y_spher
                 mask_contains_extra.append(mask_contains_extra_i)
 
                 #Also store all stars that ARE NOT within the masks                                                                                     
-            for i in range(len(mask_regions_overlap)): #for all different intersecting masks                                                            
-                for k in range(len(r_times10_extra)): #for all stars in one of the scattered regions                                                   
-                    if mask_contains_extra[i][0][k] == True: #if that mask  #the zero is to grab list;..                                                
+            for i in range(len(mask_regions_overlap)): #for all different intersecting masks                                                   
+                for k in range(len(r_times10_extra)): #for all stars in one of the scattered regions
+                    if mask_contains_extra[i][0][k] == True: #if that mask  #the zero is to grab list;..                                 
                         idx_removed_masks_it1[k] = False
 
-            extra_stars_corr = extra_stars_corr + len(c_times10_extra[0][idx_removed_masks_it1])#first this was all extra stars, but need to use less   
+            extra_stars_corr = extra_stars_corr + len(c_times10_extra[0][idx_removed_masks_it1])   
             times10_stars_it.append(c_times10_extra[0][idx_removed_masks_it1])
             if extra_stars - extra_stars_corr == 0:
                 break
@@ -194,11 +218,14 @@ def mask_calc(mask, pos, kpc_conversion , alpha_0, delta_0,X_sphere_rht, Y_spher
 
 
 
-        #plt.figure(figsize=(5,5))
-       # for n in range(len(times10_stars_allsamples)):  
-       #     plt.scatter(times10_stars_allsamples[n][0].ra.wrap_at(180*u.deg).deg, times10_stars_allsamples[n][0].dec.deg, s=1, c='grey')   
-        #    plt.scatter(c_data.ra.wrap_at(180 * u.deg).deg,c_data.dec.deg,s=1, c='purple')
-         #   plt.show()
+        # Visualize the extra stars and check that they don't fall within the masks
+#        plt.figure(figsize=(5,5))
+#        for n in range(len(times10_stars_allsamples)):
+#            #extra stars (purple)
+#            plt.scatter(times10_stars_allsamples[n][0].ra.wrap_at(180*u.deg).deg, times10_stars_allsamples[n][0].dec.deg, s=1, c='purple')   
+#            # original data (grey)
+#            plt.scatter(c_data.ra.wrap_at(180 * u.deg).deg,c_data.dec.deg,s=1, c='grey')
+#            plt.show()
     
 
         X_sphere_times10 = []
@@ -225,13 +252,15 @@ def mask_calc(mask, pos, kpc_conversion , alpha_0, delta_0,X_sphere_rht, Y_spher
         n_range = np.linspace(0,nx10_tot,20)
         if verbose:
             print("Hough Transforming " +str(nx10_tot) + " stars in groups of "+  str(np.int(nx10_tot/len(n_range))))
-
+            print('')
         rho_grid =  np.zeros([grid_x,grid_y]) #empty rho_grid file that span the rho/theta space (can
         for k in range(len(n_range)-1): #iterate over the 9 groups of stars
-            print('iteration number: ' + str(k+1) +' out of ' + str(len(n_range)-1))
+            #if verbose:
+             #   print('iteration number: ' + str(k+1) +' out of ' + str(len(n_range)-1))
             k_i = np.int(n_range[k]) #run from k to k_p1  stars which are the groups in the n_range
             k_ip1 = np.int(n_range[k+1])
- #           print('selecting stars from ' + str(k_i) + ' to ' + str(k_ip1))
+            #if verbose: 
+                #print('selecting stars from ' + str(k_i) + ' to ' + str(k_ip1))
             pos_rht_i = X_sphere_times10_rht[k_i:k_ip1],Y_sphere_times10_rht[k_i:k_ip1]
             rho_sub, theta_sub = HSS.HT_starpos(pos_rht_i, delta_t)
             #at the end we have filled all of rho and theta with the 10xstars but divided into 9 different groups
@@ -240,17 +269,29 @@ def mask_calc(mask, pos, kpc_conversion , alpha_0, delta_0,X_sphere_rht, Y_spher
             rho_grid += rho_grid_i
 
 
-    
+     
+       
+   
+   
         r = np.max(np.round(rho))
-    #    print('do we get here?')
+   
         A =(np.pi*(r)**2) #area of region
  
         #this rho grid now has dn_ran stars in each region
         dA_temp = (rho_grid/Nstars_times10) * A # should be in kpc^2 like Susan's analytic
 
 
+        ### To visually inspect the numerical dA map uncomment below
+#        plt.figure(figsize=(10,5))
+#        aspect_hist = (180./(2*r)) * 0.4
+#        cm =plt.cm.get_cmap('Greys')##Blues') 
+#        plt.imshow(dA_temp.T , origin='lower', cmap=cm, extent = (np.min(edgex), np.max(edgex),  np.min(edgey),\
+#                                                                  np.max(edgey)), aspect=aspect_hist, vmin = 0, vmax=np.max(dA_temp[:1798,:]))
+#        plt.colorbar(shrink=0.62, label=r'kpc$^2$')
+#        plt.savefig('50kpc_dA_nummeric_times100.png')
+#        plt.show()
 
         dA = dA_temp.T
         
     
-    return dA# X_sphere_scattered_rht, Y_sphere_scattered_rht
+    return dA
