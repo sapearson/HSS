@@ -121,25 +121,23 @@ def mask_calc(mask, pos, kpc_conversion , alpha_0, delta_0,X_sphere_rht, Y_spher
         number_density_region = Nstars/area_region
 
         # Requiring a number density of at least 100 stars/kpc^2 to calculate numerical dA  
-        # Below can be condensed 
-        if number_density_region < 0.1: #stars/kpc^2                                                                                                                                   
-            Nstars_times10 =  Nstars*10000
-            
-        if (number_density_region >= 0.1) & (number_density_region < 1): #stars/kpc^2                                                                                              
-            Nstars_times10 =  Nstars*1000
-            
-        if (number_density_region >= 1) & (number_density_region < 10): #stars/kpc^2
-            Nstars_times10 =  Nstars*100
-            
-        if (number_density_region > 10) & (number_density_region < 100): #stars/kpc^2                                                          
-            Nstars_times10 =  Nstars*10
-            
-        else: #just use the stars that are already in region. 
-            Nstars_times10 =  Nstars
+        factor_of_extra_stars = [10000,1000,100,10]
+        number_density_lim = [0.1,1,10,100]
+        for i in range(len(factor_of_extra_stars)):
+            if i == 0: #if less than 0.1 then multiply by 1000, to get 100stars/kpc^2
+                if number_density_region < number_density_lim[i]: #stars/kpc^2 
+                    Nstars_times10 =  Nstars * factor_of_extra_stars[i]
+                else: #just use the stars that are already in region.
+                    Nstars_times10 =  Nstars
+            else:
+                if (number_density_region >=  number_density_lim[i-1]) & (number_density_region < number_density_lim[i]): #stars/kpc^2
+                    Nstars_times10 =  Nstars * factor_of_extra_stars[i]             
+                else: #just use the stars that are already in region. 
+                    Nstars_times10 =  Nstars
 
         if verbose:
-            print('For numerical dA, the number density is: ')
-            print(str(Nstars_times10/area_region) +' stars/kpc^2')
+            print('For numerical dA, the number density is: ' + str(np.round(Nstars_times10/area_region,2)) +' stars/kpc^2')
+            print('Original number density was: '+str(np.round(Nstars/area_region,2)) +' stars/kpc^2')
             print('')
 
 
