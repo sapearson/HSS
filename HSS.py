@@ -179,7 +179,7 @@ def rho_theta_grid(pos, drho, delta_t, kpc_conversion, mask, unit,verbose, rho_e
     p = dA/A 
     k= rho_grid.T
 
-
+    # log of Equation 4 in paper 
     sf = binom.logsf(k-1, Nstars, p, loc=0) #same as (1-cdf) but can handle machine precision
     #I need k - 1 in order to add in the kth term when I do (1- cdf) which is the sf function above    
     #Pr_k = 1- cdf + pmf
@@ -187,7 +187,7 @@ def rho_theta_grid(pos, drho, delta_t, kpc_conversion, mask, unit,verbose, rho_e
 
 
     #saving transpose to have same shape as data
-    return pos_rht, rho, theta, rho_grid, edgex, edgey, A, dA.T, Pr_k.T# rho_grid_norm, rho_grid_norm_standardized, mu, std,skew_standardized      
+    return pos_rht, rho, theta, rho_grid, edgex, edgey, A, dA.T, Pr_k.T 
 
 
 
@@ -546,15 +546,6 @@ def RT_plot(pos,unit,kpc_conversion,delta_t,drho,outlier, pointsize,mask, filena
         axislabel = "[input unit]"
 
 
-        
-    #Scatter plot of region stars only
-#    fig,axes = plt.subplots(1,2 ,figsize=(12,6))#, sharex=True, sharey = True)  
-#    axes[0].scatter(pos_rht[0],pos_rht[1], s = pointsize, color ='grey')
-#    axes[0].set_xlabel(axislabel)
-#    axes[0].set_ylabel(axislabel)
-    
-    #Scatter plot but now adding linear structures where Hough Transform found maxima on rho/theta grid
- #   axes[1].scatter(pos_rht[0],pos_rht[1], s = pointsize, color='grey')
     
     fig,axes = plt.subplots(1,2 ,figsize=(12,6))#, sharex=True, sharey = True)                                                \
                                                                                                                                
@@ -565,7 +556,7 @@ def RT_plot(pos,unit,kpc_conversion,delta_t,drho,outlier, pointsize,mask, filena
     #Scatter plot but now adding linear structures where Hough Transform found maxima on rho/theta grid                       \
                                                                                                                                
     axes[1].scatter(pos_rht[0],pos_rht[1], s = pointsize, color='grey')#, label='stream stars: '+ str(len(feature_ra)))
-#    axes[1].legend(fontsize=16)
+
 
 
  
@@ -579,21 +570,20 @@ def RT_plot(pos,unit,kpc_conversion,delta_t,drho,outlier, pointsize,mask, filena
     for i in range(len(x_line)): 
     #Draw polygon imported from HT_linear_feature function
         path_poly = mpltPath.Path(poly_coords[i])
-        #How many stars in data are inside the polygon
+        # How many stars in data are inside the polygon
         inside = path_poly.contains_points(np.transpose([pos_rht[0],pos_rht[1]]))
         poly = mpl.patches.Polygon(poly_coords[i],alpha=0.3, color=c[i])
         stars_inside_poly = len(pos_rht[0][inside]) #str(stars_inside_poly)+' stars,
         stars_inside.append(stars_inside_poly)
-        # Option to store all features... might be interesting for the dwarf run
-        #also store the inside stars in ra/dec so we can see connecting features of most significant peak
+        # Option to store all features... 
+        # also store the inside stars in ra/dec so we can see connecting features of most significant peak
         # To use the np.save features below, you need to create a "features" and "inside" directory in your plot_path 
         if len(x_line)<10 and i ==0:#for now only the first value = the most significant 
-            feature_ra = pos[0][inside]#.append(pos[0][inside])
-            feature_dec = pos[1][inside]##].append(pos[1][inside])
+            feature_ra = pos[0][inside]
+            feature_dec = pos[1][inside]
            # np.save(path_plot+'features/stripe_ra_' +str(filename)+'.npy',feature_ra)
            # np.save(path_plot+'features/stripe_dec_' +str(filename)+'.npy',feature_dec)
            # np.save(path_plot+'features/stripe_Pr_' +str(filename)+'.npy',np.round(Pr_min[0],2))
-            #I can jus output what stars were inside msot significant peak!
            # np.save(path_plot+'inside/stars_inside_' +str(filename)+'.npy',inside)#for now I am only storing the most prominent
             
         if len(x_line) < 10 and i > 0: #only store if less than 10 features total!
@@ -603,8 +593,8 @@ def RT_plot(pos,unit,kpc_conversion,delta_t,drho,outlier, pointsize,mask, filena
             feature_dec_notpeak.append(feature_dec)
             Pr_notpeak.append(np.round(Pr_min[i],2))
 
-    ###################
-        #### Also store all "blobs""....
+
+        #### Also store all "blobs"
         if len(x_line)>10 and i ==0:#for now only the first value = the most significant                                                                                                            
             blob_ra = pos[0][inside]#.append(pos[0][inside])                                                                                                                                    
             blob_dec = pos[1][inside]##].append(pos[1][inside])                                                                                                                                  
@@ -633,19 +623,14 @@ def RT_plot(pos,unit,kpc_conversion,delta_t,drho,outlier, pointsize,mask, filena
             #note that the 10 most significant streams will be the ones plotted (due to argsort in the peak finding algorithm) 
 
 
-
-           #Scatter plot of region stars only                                                                                                                                          
-     
-
-
-    #store the stars inside the less significant peaks and their Pr values
+#    store the stars inside the less significant peaks and their Pr values
 #    if len(feature_ra_notpeak)>0:# i.e. there are not only one structures
         #np.save(path_plot+'features/stripe_ra_notpeak_' +str(filename)+'.npy',feature_ra_notpeak)
         #np.save(path_plot+'features/stripe_dec_notpeak_' +str(filename)+'.npy',feature_dec_notpeak)
         #np.save(path_plot+'features/stripe_Pr_notpeak_' +str(filename)+'.npy',Pr_notpeak)
-#
- #   if len(blob_ra_notpeak)>0:# i.e. there are not only one structures                                                                                                       
- #      # np.save(path_plot+'features/blob_ra_notpeak_' +str(filename)+'.npy',blob_ra_notpeak)
+        
+#   if len(blob_ra_notpeak)>0:# i.e. there are not only one structures                                                                                                       
+#      # np.save(path_plot+'features/blob_ra_notpeak_' +str(filename)+'.npy',blob_ra_notpeak)
        # np.save(path_plot+'features/blob_dec_notpeak_' +str(filename)+'.npy',blob_dec_notpeak)
        # np.save(path_plot+'features/blob_Pr_notpeak_' +str(filename)+'.npy',Pr_notpeak)
         
@@ -722,8 +707,8 @@ def RT_plot(pos,unit,kpc_conversion,delta_t,drho,outlier, pointsize,mask, filena
     ax3.set_ylim([ext_min,ext_max])
     ax3.set_xlim([0,np.int(np.max(edgex))])
 
-    fig2.colorbar( im,ax=ax1 ,shrink=1, label=r'number of stars, $k$')#N$_{\rm stars}$')
-    fig2.colorbar( im3,ax=ax3, shrink=1,label=r'${\rm logPr}(X \geq k)$')#log10(1 - F(k;N,da/A) + f(k,N,da/A))')
+    fig2.colorbar( im,ax=ax1 ,shrink=1, label=r'number of stars, $k$')
+    fig2.colorbar( im3,ax=ax3, shrink=1,label=r'${\rm logPr}(X \geq k)$')
 
     fig2.tight_layout()
     
@@ -748,6 +733,6 @@ def RT_plot(pos,unit,kpc_conversion,delta_t,drho,outlier, pointsize,mask, filena
 
     return print("plots saved in " + path_plot)
 
- #can return any values and save them in txt files as
-       # with open("stdskew_35kpc.txt", "a") as f:
-        #    f.write(str(std)+ '\n')
+ # can return any values and save them in txt files as
+       # with open("test.txt", "a") as f:
+        #    f.write(str(value)+ '\n')
