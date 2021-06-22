@@ -40,9 +40,11 @@ Function 1: HT_starpos
 
 Function 2: rho_theta_grid
 
-	-Makes 2D histogram of (rho,theta) with drho, delta_t bins (peaks in this histogram correspond to overlapping sinusoids, i.e., straight lines in (x,y)-space)
+	-Makes 2D histogram of (rho,theta) with drho, delta_t bins (peaks in this histogram correspond 
+	to overlapping sinusoids, i.e., straight lines in (x,y)-space)
 
-	-Calculates bibomial probability of certain bins in the rho-theta 2D histogram having k or more overlapping sinusoids (stars) by chance
+	-Calculates bibomial probability of certain bins in the rho-theta 2D histogram having 
+	k or more overlapping sinusoids (stars) by chance
 
 Function 3: rho_theta_peaks
 
@@ -56,7 +58,8 @@ Function 5: RT_plot
 
 	-Plots the input data, the detected stripe and the probability distribution of the detection.
 
-	-Outputs the (rho,theta)-values associated with the minima in (rho,theta) space, the probability of detection, and the number if stars in the recovered linear feature
+	-Outputs the (rho,theta)-values associated with the minima in (rho,theta) space, the probability 
+	of detection, and the number of stars in the recovered linear feature
 
 
 The code also has a seperate HSS_maks_calc.py file, which handles the location and probability distribution if the dataset includes masks.
