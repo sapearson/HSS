@@ -4,7 +4,7 @@
 The Hough Stream Spotter (HSS)
 ==================================
 
-This is the Hough Stream Spotter (HSS), described in Pearson et al. 2021 (arXiv: 2107.00017)
+This is the Hough Stream Spotter (HSS), described in Pearson et al. 2021 (https://arxiv.org/abs/2107.00017)
 
 The HSS is a  stream finding code which transforms individual positions of stars to search for linear structure in discrete data sets. The HSS requires only the two-dimensional plane of galactic longitude and latitude as input. The HSS was used to search for globular cluster streams in the PAndAS M31 stellar halo photometric data set in Pearson et al. 2021.
 
