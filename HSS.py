@@ -171,7 +171,10 @@ def rho_theta_grid(pos, drho, delta_t, kpc_conversion, mask, unit,verbose, rho_e
                 dA[i,j] = r**2 * np.arccos(rho1/r) - rho1 * np.sqrt(r**2 - rho1**2)\
                         -(  r**2 * np.arccos(rho2/r) - rho2 * np.sqrt(r**2 - rho2**2))
 
-        
+
+    #Check dA calculation:
+    if math.isnan(np.min(dA)):
+        print("Error: There's a NaN in dA calc")
    
     # Area of region
     A =(np.pi*r**2)
@@ -183,6 +186,9 @@ def rho_theta_grid(pos, drho, delta_t, kpc_conversion, mask, unit,verbose, rho_e
     sf = binom.logsf(k-1, Nstars, p, loc=0) #same as (1-cdf) but can handle machine precision
     #I need k - 1 in order to add in the kth term when I do (1- cdf) which is the sf function above    
     #Pr_k = 1- cdf + pmf
+    #check binomial calculation:
+    if math.isnan(np.min(sf)):
+        print("Error: there's a NaN in the binomial probability calc")
     Pr_k = sf
 
 
