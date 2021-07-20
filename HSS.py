@@ -154,7 +154,7 @@ def rho_theta_grid(pos, drho, delta_t, kpc_conversion, mask, unit,verbose, rho_e
         
     else:
         #numerical dA/A
-        r = np.max(np.round(rho)) #rho_max
+        r = np.max(np.round(rho,2)) #rho_max
         rho_centers = np.linspace( -r +drho- drho/2, r - drho/2,grid_y)
         #due to nummerical issues depending on how many bins there are in y direciton i round this array
         # the drho2 can be larger than r if I don't round the rho_centers and swrt below could be negative
