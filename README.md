@@ -100,6 +100,6 @@ Instructions For Use
 Code Use
 ==================================
 
-If use of the HSS results in a publication, please cite Pearson et al. 2021: https://arxiv.org/abs/2107.00017
+If use of the HSS results in a publication, please cite Pearson et al. 2022a (https://ui.adsabs.harvard.edu/abs/2022ApJ...926..166P/abstract) and code  (https://ui.adsabs.harvard.edu/abs/2021ascl.soft09014P/abstract)
 
 The HSS maintained by Sarah Pearson
